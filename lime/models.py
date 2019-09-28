@@ -10,6 +10,21 @@ class PublicManager(models.Manager):
     def get_queryset(self):
         return super(PublicManager, self).get_queryset().filter(is_public='true')
 
+class Search(models.Model):
+
+    name = models.CharField('name', max_length=255)
+    description = models.TextField('description', blank=True)
+    url = models.URLField()
+    q = models.CharField('keywords', max_length=10)
+    icon = models.ImageField(upload_to='search/', blank=True)
+
+    class Meta:
+        verbose_name = 'serach'
+        verbose_name_plural = verbose_name
+        ordering = ['name']
+
+    def __str__(self):
+        return '%s (%s)' % (self.name, self.url)
 
 class Category(models.Model):
 
@@ -22,12 +37,12 @@ class Category(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        return self.name
+         return '%s (%s)' % (self.name, self.description)
 
 class Bookmark(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='author')
     url = models.URLField()
-    ico = models.ImageField(upload_to='user/%Y/', blank=True)
+    ico = models.ImageField(upload_to='user/b%Y/', blank=True)
     title = models.CharField('title', max_length=255)
     description = models.TextField('description', blank=True)
     is_public = models.BooleanField('public', default=True)
@@ -46,7 +61,7 @@ class Bookmark(models.Model):
     class Meta:
         verbose_name = 'bookmark'
         verbose_name_plural = 'bookmarks'
-        ordering = ['title']
+        ordering = ['category','id']
 
     def __str__(self):
         return '%s (%s)' % (self.title, self.url)

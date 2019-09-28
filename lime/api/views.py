@@ -1,19 +1,16 @@
 from rest_framework import generics
-from ..models import Category,Bookmark
-from .serializers import CategorySerializer,BookmarkSerializer
+from ..models import Category,Bookmark,Search
+from .serializers import CategorySerializer,BookmarkSerializer,SearchSerializer
+from rest_framework import viewsets
 
-class CategoryListView(generics.ListAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-class CategoryDetailView(generics.RetrieveAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-class BookmarkListView(generics.ListAPIView):
+class BookmarkViewSet(viewsets.ModelViewSet):
     queryset = Bookmark.objects.all()
     serializer_class = BookmarkSerializer
 
-class BookmarkDetailView(generics.RetrieveAPIView):
-    queryset = Bookmark.objects.all()
-    serializer_class = BookmarkSerializer
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class SearchViewSet(viewsets.ModelViewSet):
+    queryset = Search.objects.all()
+    serializer_class = SearchSerializer

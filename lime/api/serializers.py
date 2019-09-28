@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Bookmark, Category
+from ..models import Bookmark, Category,Search
 from taggit_serializer.serializers import (TagListSerializerField,
                                            TaggitSerializer)
 
@@ -7,10 +7,14 @@ class BookmarkSerializer(TaggitSerializer, serializers.ModelSerializer):
 
     tags = TagListSerializerField()
     
+    category_name = serializers.CharField(source='category.name', read_only=True)
+    
+    author_name =serializers.CharField(default=serializers.CurrentUserDefault(), read_only=True)
+
     class Meta:
         model = Bookmark
-        fields = ['id', 'author','title', 'url', 'ico',
-                  'description', 'created','updated','is_public','is_valid','category','tags']
+        fields = ['id', 'author','author_name','title', 'url', 'ico',
+                  'description', 'created','updated','is_public','is_valid','category','category_name','tags']
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -26,4 +30,7 @@ class CategorySerializer(serializers.ModelSerializer):
             Bookmark.objects.create(category=category, **coco_data)
         return category
 
-
+class SearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Search
+        fields = ['name','description', 'url','q', 'icon']

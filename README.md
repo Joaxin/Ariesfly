@@ -1,4 +1,4 @@
-django-skeleton-vue
+Ariesfly
 
 ## Features
 
@@ -7,7 +7,7 @@ django-skeleton-vue
 - taggit
 - debug_toolbar
 - Vue CLI3 & Vue.js integration
-- vue-resource, element-ui
+- element-ui
 
 ## Setup
 
@@ -79,9 +79,10 @@ vue create vuefront
 ```
 cd vuefront
 # install dependencies
-npm install
+# npm install
 npm install  vue-resource
 npm install element-ui
+npm install --save axios js-cookie
 ```
 
 Project setup
@@ -120,4 +121,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/)
 https://cli.vuejs.org/config/#typescript
 
 - https://github.com/gtalarico/django-vue-template
+- http://quotes.toscrape.com
 
